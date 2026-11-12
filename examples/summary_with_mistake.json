@@ -1,0 +1,32 @@
+{
+  "term": "2027SP",
+  "prior_term": "2026SP",
+  "compare_by": "calendar",
+  "this_year": {
+    "date": "2026-11-09",
+    "headcount": 906,
+    "credit_hours": 11916,
+    "dual_enrollment": 59,
+    "by_school": {
+      "Arts & Sciences": 351,
+      "Business": 162,
+      "Education": 105,
+      "Nursing": 201,
+      "Theology": 87
+    }
+  },
+  "last_year": {
+    "date": "2025-11-03",
+    "headcount": 798,
+    "credit_hours": 10400,
+    "dual_enrollment": 55,
+    "by_school": {
+      "Arts & Sciences": 321,
+      "Business": 163,
+      "Education": 96,
+      "Nursing": 152,
+      "Theology": 66
+    }
+  },
+  "change": 108
+}
