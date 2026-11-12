@@ -23,14 +23,14 @@
 <h2>The three essentials</h2>
 <div class="grid">
 <div class="card"><h3><span class="num">1</span>Governed data access</h3><p>The tool reads a reporting copy through a read-only login, never production. People who own the data decide what it can see. <a href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/ACCESS.md">ACCESS.md</a></p></div>
-<div class="card"><h3><span class="num">2</span>Verify before it ships</h3><p>Source, method, and a falsifier for every number, then a person signs off. <a href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/CHECKLIST.md">CHECKLIST.md</a></p></div>
+<div class="card"><h3><span class="num">2</span>Verify before it ships</h3><p>Source, method, and a challenge for every number, then a human reviewer signs off. <a href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/CHECKLIST.md">CHECKLIST.md</a></p></div>
 <div class="card"><h3><span class="num">3</span>Knowledge written down</h3><p>The rules that live in one person's head, captured once, so your team and your tools follow the same ones. <a href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/rules/report_rules.md">report_rules.md</a></p></div>
 </div>
 
 <h2>Why the check matters: same data, one wrong date</h2>
 <div class="compare">
-<div class="card"><p>Compared with the same <strong>week and weekday</strong> last year</p><p class="big ok">Down 23</p><p>906 now vs 929 on Mon 2025-11-10. All 10 checks pass. <a href="examples/report_correct.html">Report</a></p></div>
-<div class="card"><p>Compared with the same <strong>calendar date</strong>, nearest earlier snapshot</p><p class="big bad">Up 108</p><p>906 now vs 798 on Mon 2025-11-03, a week early. The checker fails it. <a href="examples/report_with_mistake.html">Report</a></p></div>
+<div class="card"><p>Compared with the same <strong>week of the year and weekday</strong> last year</p><p class="big ok">Down 73</p><p>1,436 now vs 1,509 on Mon 2025-11-10. All 14 checks pass. <a href="examples/report_correct.html">Report</a></p></div>
+<div class="card"><p>Compared with the same <strong>calendar date</strong>, nearest earlier snapshot</p><p class="big bad">Up 139</p><p>1,436 now vs 1,297 on Mon 2025-11-03, a week early. The checker fails it. <a href="examples/report_with_mistake.html">Report</a></p></div>
 </div>
 <p>Both reports look finished, and both count the data correctly. Only one answers the question. That is what the checklist is for.</p>
 
@@ -38,8 +38,8 @@
 <p>You need Python 3.9 or later. Nothing else to install.</p>
 <pre><span>python data/make_sample_data.py      # rebuild the fake data (optional, it's included)</span>
 <span>python report/build_report.py        # build the report</span>
-<span>python check/verify.py               # 10 checks; exit code 0 = OK to send</span>
-<span>python check/verify.py --falsify     # prove the checks can fail</span>
+<span>python check/verify.py               # 14 checks; exit code 0 = OK to send</span>
+<span>python check/verify.py --challenge   # prove the checks can fail</span>
 <span>python report/build_report.py --compare-by calendar --out report/out_mistake</span>
 <span>python check/verify.py --summary report/out_mistake/summary.json   # watch it catch the mistake</span></pre>
 
@@ -58,13 +58,13 @@
 <tr><td><code>rules/report_rules.md</code></td><td>The written-down rules for the report. Start here.</td></tr>
 <tr><td><code>prompts/01_build_report.md</code></td><td>The prompt to give your AI assistant.</td></tr>
 <tr><td><code>report/build_report.py</code></td><td>A reference script, the kind the prompt produces.</td></tr>
-<tr><td><code>check/verify.py</code></td><td>Source and method checks, plus a falsifier.</td></tr>
+<tr><td><code>check/verify.py</code></td><td>Source and method checks, plus a challenge that proves the checks can fail.</td></tr>
 <tr><td><code>data/registrations_sample.csv</code></td><td>Fake weekly registration snapshots for two spring terms.</td></tr>
 <tr><td><code>CHECKLIST.md</code>, <code>ACCESS.md</code></td><td>One-page guides for verification and data access.</td></tr>
 </table>
 
 <footer>
-<p>Shared by Union University Enterprise Systems, IT (Jackson, Tennessee) at the 2026 HESS Consortium National Conference. All data in this kit is invented. Questions or want to go further? Find us through the HESS AI Leadership Discussion Group, or contact Willie George or Bryson McNichols at Union University.</p>
+<p>Shared by Union University Enterprise Systems, IT (Jackson, Tennessee) at the 2026 HESS Consortium National Conference. All data in this kit is invented. Questions or want to go further? Contact Willie George (wgeorge@uu.edu) or Bryson McNichols (bmcnichols@uu.edu).</p>
 </footer>
 </div>
 </body>

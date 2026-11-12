@@ -4,29 +4,45 @@
   "compare_by": "calendar",
   "this_year": {
     "date": "2026-11-09",
-    "headcount": 906,
-    "credit_hours": 11916,
-    "dual_enrollment": 59,
+    "headcount": 1436,
+    "credit_hours": 18487,
+    "dual_enrollment": 90,
     "by_school": {
-      "Arts & Sciences": 351,
-      "Business": 162,
-      "Education": 105,
-      "Nursing": 201,
-      "Theology": 87
+      "Arts & Sciences": 577,
+      "Business": 282,
+      "Education": 189,
+      "Nursing": 279,
+      "Theology": 109
+    },
+    "by_level": {
+      "GR": 272,
+      "UG": 1164
+    },
+    "by_type": {
+      "New": 142,
+      "Returning": 1294
     }
   },
   "last_year": {
     "date": "2025-11-03",
-    "headcount": 798,
-    "credit_hours": 10400,
-    "dual_enrollment": 55,
+    "headcount": 1297,
+    "credit_hours": 16904,
+    "dual_enrollment": 82,
     "by_school": {
-      "Arts & Sciences": 321,
-      "Business": 163,
-      "Education": 96,
-      "Nursing": 152,
-      "Theology": 66
+      "Arts & Sciences": 500,
+      "Business": 261,
+      "Education": 154,
+      "Nursing": 281,
+      "Theology": 101
+    },
+    "by_level": {
+      "GR": 233,
+      "UG": 1064
+    },
+    "by_type": {
+      "New": 135,
+      "Returning": 1162
     }
   },
-  "change": 108
+  "change": 139
 }

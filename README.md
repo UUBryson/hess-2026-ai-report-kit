@@ -9,7 +9,7 @@ Automate one weekly report with AI, and trust the number. Everything runs on fak
 ```
 python report/build_report.py      # build the report from the fake data
 python check/verify.py             # source and method checks; exit 0 = OK to send
-python check/verify.py --falsify   # prove the checks can fail
+python check/verify.py --challenge # prove the checks can fail
 ```
 
 | File | What it is |
@@ -17,9 +17,9 @@ python check/verify.py --falsify   # prove the checks can fail
 | `rules/report_rules.md` | The written-down rules for the report. Start here. |
 | `prompts/01_build_report.md` | The prompt to give your AI assistant. |
 | `report/build_report.py` | Reference script, the kind the prompt produces. |
-| `check/verify.py` | Source and method checks, plus a falsifier. |
+| `check/verify.py` | Source and method checks, plus a challenge that proves the checks can fail. |
 | `data/registrations_sample.csv` | Fake weekly registration snapshots (regenerate with `data/make_sample_data.py`). |
-| `CHECKLIST.md` | Source, method, falsifier: three questions before a number ships. |
+| `CHECKLIST.md` | Source, method, challenge: three questions before a number ships. |
 | `ACCESS.md` | Governed data access: what the tool can and cannot touch. |
 
 All data is invented. No Union University data is included.

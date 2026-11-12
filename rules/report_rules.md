@@ -16,9 +16,9 @@ How many students are registered for next term today, compared with the same poi
 1. **Headcount** = distinct students with more than 0 credit hours on the snapshot. A row with 0 hours is a student who dropped everything; do not count them.
 2. **Dual enrollment** (high school students) is reported on its own line. It is NOT in the headline headcount.
 3. **Credit hours** = sum of credit hours for the students in the headcount.
-4. **Compare to last year using the same week and weekday, never the same calendar date.** Monday 2026-11-09 compares to Monday 2025-11-10 (both ISO week 46). The same calendar date last year (2025-11-09) was a Sunday, and there is no snapshot that day.
+4. **Compare to last year using the same week of the year and the same weekday, never the same calendar date.** Monday 2026-11-09 compares to Monday 2025-11-10 (both the Monday of week 46). The same calendar date last year (2025-11-09) was a Sunday, and there is no snapshot that day. Weeks are numbered the standard (ISO) way: they start on Monday, and week 1 is the week with the year's first Thursday.
 5. **If the compare snapshot does not exist, say so.** Do not quietly use the nearest date.
-6. **Groups must add up.** The school lines must sum to the headline headcount.
+6. **Groups must add up.** The school, level, and student type lines must each sum to the headline headcount.
 7. **Report the as-of date on the page,** and the compare date next to it.
 
 ## Data source

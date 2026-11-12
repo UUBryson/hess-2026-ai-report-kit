@@ -12,14 +12,14 @@ Ask these three questions of any number an AI tool helped produce, before it rea
 - Recount the headline a second way, with separate code or by hand.
 - Check that the parts add up to the total.
 
-## 3. Falsifier: what would prove it wrong?
+## 3. Challenge: what would prove it wrong?
 - Name the one result that would show the number is wrong, and test for it.
 - Break a copy on purpose and confirm your check catches it. A check that can never fail is not a check.
 - Compare with what the person who knows the data expects. A surprise is a reason to look, not a headline.
 
-## Then a person signs off
-The tool drafts. A person who knows the data reads it and approves it before it is sent.
+## Then a human reviewer signs off
+The tool drafts. A reviewer who knows the data reads it and approves it before it is sent.
 
 ---
 
-In this kit, `check/verify.py` runs questions 1 and 2, and `python check/verify.py --falsify` runs question 3.
+In this kit, `check/verify.py` runs questions 1 and 2, and `python check/verify.py --challenge` runs question 3.

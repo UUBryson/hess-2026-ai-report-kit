@@ -1,11 +1,11 @@
-"""Check a report before anyone sees it. Source, method, and a falsifier.
+"""Check a report before anyone sees it. Source, method, and a challenge.
 
 It recomputes the numbers from the raw file with separate code, then checks the rules.
 Exit code 0 = every check passed. Anything else = do not send.
 
     python check/verify.py                       # checks report/out/summary.json
     python check/verify.py --summary examples/summary_with_mistake.json
-    python check/verify.py --falsify             # prove the checks can fail
+    python check/verify.py --challenge           # prove the checks can fail
 """
 import argparse
 import copy
@@ -53,8 +53,10 @@ def run_checks(s, rows):
         n, h = recount(rows, term, side["date"])
         check(f"Method: {label} headcount matches recount", side["headcount"] == n, f"report {side['headcount']:,}, recount {n:,}")
         check(f"Method: {label} credit hours match recount", side["credit_hours"] == h, f"report {side['credit_hours']:,}, recount {h:,}")
-        check(f"Method: {label} schools add up to headline", sum(side["by_school"].values()) == side["headcount"],
-              f"schools {sum(side['by_school'].values()):,}, headline {side['headcount']:,}")
+        for part in ("by_school", "by_level", "by_type"):
+            name = {"by_school": "schools", "by_level": "levels", "by_type": "student types"}[part]
+            check(f"Method: {label} {name} add up to headline", sum(side[part].values()) == side["headcount"],
+                  f"{name} {sum(side[part].values()):,}, headline {side['headcount']:,}")
 
     check("Method: change = this year - last year", s["change"] == t["headcount"] - p["headcount"], f"{s['change']:+,}")
     return results
@@ -64,22 +66,22 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default=ROOT / "data" / "registrations_sample.csv")
     ap.add_argument("--summary", default=ROOT / "report" / "out" / "summary.json")
-    ap.add_argument("--falsify", action="store_true", help="break a copy on purpose and confirm the checks catch it")
+    ap.add_argument("--challenge", action="store_true", help="break a copy on purpose and confirm the checks catch it")
     a = ap.parse_args()
 
     with open(a.data, newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
     s = json.loads(Path(a.summary).read_text(encoding="utf-8"))
 
-    if a.falsify:
-        # FALSIFIER: a check that can never fail is not a check. Break things and expect failures.
+    if a.challenge:
+        # CHALLENGE: a check that can never fail is not a check. Break things and expect failures.
         broken = copy.deepcopy(s)
         broken["this_year"]["headcount"] += 7
         bad_week = copy.deepcopy(s)
         bad_week["last_year"]["date"] = date.fromisoformat(s["this_year"]["date"]).replace(
             year=date.fromisoformat(s["this_year"]["date"]).year - 1).isoformat()
         caught = [not all(ok for _, ok, _ in run_checks(x, rows)) for x in (broken, bad_week)]
-        print(f"Falsifier: headcount off by 7 caught = {caught[0]}; calendar-date compare caught = {caught[1]}")
+        print(f"Challenge: headcount off by 7 caught = {caught[0]}; calendar-date compare caught = {caught[1]}")
         sys.exit(0 if all(caught) else 1)
 
     results = run_checks(s, rows)

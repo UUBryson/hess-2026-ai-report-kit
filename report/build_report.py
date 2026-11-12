@@ -1,7 +1,7 @@
 """Build the weekly registration report from the snapshot file.
 
 This is the kind of script an AI assistant writes for you from rules/report_rules.md
-and prompts/01_build_report.md. Read it before you trust it; then run check/verify.py.
+and prompts/01_build_report.md. Read it before you trust it, then run check/verify.py.
 
     python report/build_report.py                      # latest snapshot of 2027SP vs 2026SP
     python report/build_report.py --as-of 2026-11-02
@@ -24,7 +24,7 @@ def load(path):
 
 
 def same_week_last_year(d):
-    """Rule 4: same ISO week and weekday, one year back."""
+    """Rule 4: same week of the year (ISO numbering) and weekday, one year back."""
     year, week, weekday = d.isocalendar()
     return date.fromisocalendar(year - 1, week, weekday)
 
@@ -34,6 +34,8 @@ def summarize(rows, term, snap):
     de = set()
     hours = 0
     by_school = defaultdict(int)
+    by_level = defaultdict(int)
+    by_type = defaultdict(int)
     for r in rows:
         if r["term"] != term or r["snapshot_date"] != snap.isoformat():
             continue
@@ -46,8 +48,11 @@ def summarize(rows, term, snap):
         head.add(r["student_id"])
         hours += h                                   # rule 3
         by_school[r["school"]] += 1
+        by_level[r["student_level"]] += 1
+        by_type[r["student_type"]] += 1
     return {"date": snap.isoformat(), "headcount": len(head), "credit_hours": hours,
-            "dual_enrollment": len(de), "by_school": dict(sorted(by_school.items()))}
+            "dual_enrollment": len(de), "by_school": dict(sorted(by_school.items())),
+            "by_level": dict(sorted(by_level.items())), "by_type": dict(sorted(by_type.items()))}
 
 
 def main():
@@ -92,14 +97,17 @@ def main():
 
 def render(s):
     t, p = s["this_year"], s["last_year"]
-    schools = sorted(set(t["by_school"]) | set(p["by_school"]))
-    rows = "".join(
-        f"<tr><td>{html.escape(k)}</td><td>{t['by_school'].get(k, 0):,}</td>"
-        f"<td>{p['by_school'].get(k, 0):,}</td><td>{t['by_school'].get(k, 0) - p['by_school'].get(k, 0):+,}</td></tr>"
-        for k in schools)
+    def table(title, key):
+        keys = sorted(set(t[key]) | set(p[key]))
+        body = "".join(
+            f"<tr><td>{html.escape(k)}</td><td>{t[key].get(k, 0):,}</td>"
+            f"<td>{p[key].get(k, 0):,}</td><td>{t[key].get(k, 0) - p[key].get(k, 0):+,}</td></tr>"
+            for k in keys)
+        return (f"<h2>{title}</h2><table><tr><th>{title}</th><th>This year</th><th>Last year</th><th>Change</th></tr>{body}"
+                f"<tr><th>Total</th><th>{t['headcount']:,}</th><th>{p['headcount']:,}</th><th>{s['change']:+,}</th></tr></table>")
     word = "up" if s["change"] >= 0 else "down"
     return f"""<!doctype html><html><head><meta charset="utf-8"><title>Registration Report {t['date']}</title>
-<style>body{{font-family:system-ui,sans-serif;margin:24px;color:#1f2937}}h1{{font-size:22px}}
+<style>body{{font-family:system-ui,sans-serif;margin:24px;color:#1f2937}}h1{{font-size:22px}}h2{{font-size:16px;margin-top:20px}}
 table{{border-collapse:collapse;margin-top:12px}}td,th{{border:1px solid #d1d5db;padding:6px 10px;text-align:right}}
 td:first-child,th:first-child{{text-align:left}}.big{{font-size:40px;font-weight:700}}.muted{{color:#6b7280}}</style></head><body>
 <h1>{s['term']} Registration Report</h1>
@@ -107,8 +115,9 @@ td:first-child,th:first-child{{text-align:left}}.big{{font-size:40px;font-weight
 <p class="big">{t['headcount']:,}</p>
 <p>students registered, {word} {abs(s['change']):,} from the same week last year ({p['headcount']:,}).
 Credit hours {t['credit_hours']:,} vs {p['credit_hours']:,}. Dual enrollment, reported separately: {t['dual_enrollment']:,} vs {p['dual_enrollment']:,}.</p>
-<table><tr><th>School</th><th>This year</th><th>Last year</th><th>Change</th></tr>{rows}
-<tr><th>Total</th><th>{t['headcount']:,}</th><th>{p['headcount']:,}</th><th>{s['change']:+,}</th></tr></table>
+{table("School", "by_school")}
+{table("Level", "by_level")}
+{table("Student type", "by_type")}
 </body></html>"""
 
 

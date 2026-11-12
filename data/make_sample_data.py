@@ -10,15 +10,15 @@ import random
 from datetime import date, timedelta
 from pathlib import Path
 
-random.seed(2026)
+random.seed(1716)
 
 SCHOOLS = ["Arts & Sciences", "Business", "Education", "Nursing", "Theology"]
 SCHOOL_WEIGHTS = [0.40, 0.20, 0.12, 0.20, 0.08]
 
 # term, first Monday of registration, number of weekly snapshots, final headcount
 TERMS = [
-    ("2026SP", date(2025, 10, 27), 12, 1480),  # last year: full season
-    ("2027SP", date(2026, 10, 26), 3, 1440),   # this year: three Mondays so far
+    ("2026SP", date(2025, 10, 27), 12, 2380),  # last year: full season
+    ("2027SP", date(2026, 10, 26), 3, 2260),   # this year: three Mondays so far
 ]
 
 
