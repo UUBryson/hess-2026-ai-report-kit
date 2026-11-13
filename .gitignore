@@ -1,3 +1,4 @@
 report/out/
+report/out_mistake/
 __pycache__/
 *.pyc
