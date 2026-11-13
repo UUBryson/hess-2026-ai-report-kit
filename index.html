@@ -4,68 +4,138 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weekly Report Kit</title>
-<meta name="description" content="A take-home kit from the 2026 HESS Consortium National Conference: automate one weekly report with AI, safely.">
-<style>:root{--bg:#fbfaf7;--fg:#1c1f24;--muted:#5d6470;--card:#ffffff;--line:#e3e0d8;--accent:#8a1c1c;--accent-soft:#f6e9e6;--ok:#1f6b3a;--bad:#a12b2b;--code:#f2f0ea}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15171b;--fg:#ecebe7;--muted:#a4a9b2;--card:#1d2026;--line:#30343c;--accent:#e58a7c;--accent-soft:#2a1f1f;--ok:#7fd19b;--bad:#f09a8f;--code:#23262d}}:root[data-theme="dark"]{--bg:#15171b;--fg:#ecebe7;--muted:#a4a9b2;--card:#1d2026;--line:#30343c;--accent:#e58a7c;--accent-soft:#2a1f1f;--ok:#7fd19b;--bad:#f09a8f;--code:#23262d}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{padding:28px 16px 48px;margin:0 auto;width:min(100%,1080px)}header p.kicker{margin:0;color:var(--accent);font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:13px}h1{font-size:clamp(28px,4.5vw,44px);line-height:1.1;margin:8px 0 12px}.lede{font-size:18px;color:var(--muted);margin:0 0 20px}.btns{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}.btn{display:inline-block;padding:10px 16px;border-radius:8px;border:1px solid var(--line);color:var(--fg);text-decoration:none;font-weight:600;background:var(--card)}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{color:#15171b}}h2{font-size:22px;margin:36px 0 12px}.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;color:var(--muted)}.num{display:inline-block;width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent);text-align:center;font-weight:700;line-height:26px;margin-right:8px;font-size:14px}ol.steps{padding-left:20px}ol.steps li{margin:6px 0}code,pre{font-family:ui-monospace,Consolas,monospace;background:var(--code);border-radius:6px}code{padding:1px 5px;font-size:.92em}pre{padding:12px;overflow-x:auto;font-size:14px;border:1px solid var(--line)}.compare{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}.compare .card .big{font-size:34px;font-weight:700;margin:4px 0}.ok{color:var(--ok)}.bad{color:var(--bad)}table{border-collapse:collapse;width:100%;font-size:15px}td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}footer{margin-top:40px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:16px}a{color:var(--accent)}</style>
+<meta name="description" content="A free take-home kit from the 2026 HESS Consortium National Conference: automate one weekly report with AI, and trust the number.">
+<style>
+:root{--bg:#faf9f6;--bg2:#f3f0eb;--card:#ffffff;--ink:#24252a;--muted:#62646b;--rule:#dedad5;--red:#8c2034;--burg:#501725;--pale:#f1e7e6;--gold:#c3a273;--green:#246653;--greenbg:#e9f1ec;--code:#202329;--codefg:#e6e3df;--onburg:#f3e9eb;--onburg2:#d6bcc3}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141518;--bg2:#191a1e;--card:#1e2025;--ink:#ecebe7;--muted:#a6a8af;--rule:#30323a;--red:#e48c9b;--burg:#3a111b;--pale:#2a1b1f;--gold:#d2b48a;--green:#7fcfae;--greenbg:#16241f;--code:#0e0f12}}
+:root[data-theme="dark"]{--bg:#141518;--bg2:#191a1e;--card:#1e2025;--ink:#ecebe7;--muted:#a6a8af;--rule:#30323a;--red:#e48c9b;--burg:#3a111b;--pale:#2a1b1f;--gold:#d2b48a;--green:#7fcfae;--greenbg:#16241f;--code:#0e0f12}
+*{box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:hidden}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;-webkit-font-smoothing:antialiased}a{color:var(--red)}h1,h2,h3{font-family:"Segoe UI Semibold","Segoe UI",system-ui,sans-serif;font-weight:600;letter-spacing:-.01em}
+.wrap{width:min(100%,1080px);margin:0 auto;padding:0 16px}.tag{display:block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin:0 0 10px}.num{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--red)}
+nav{position:sticky;top:0;z-index:5;background:var(--burg);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}nav .wrap{display:flex;align-items:center;gap:20px;height:54px}nav .brand{color:#fff;text-decoration:none;font-weight:600;margin-right:auto;letter-spacing:.02em}nav a.link{color:var(--onburg2);text-decoration:none;font-size:14px}nav a.link:hover{color:#fff}.toggle{border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;border-radius:999px;width:34px;height:34px;cursor:pointer}@media (max-width:760px){nav a.link{display:none}.step{grid-template-columns:44px 1fr;gap:12px}.step .n{font-size:26px}.hero{padding:40px 0 48px}}
+.hero{background:var(--burg);color:#fff;padding:64px 0 72px}.hero .grid{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:center}@media (max-width:860px){.hero .grid{grid-template-columns:1fr}}.hero .tag{color:var(--gold)}.hero h1{font-size:clamp(36px,6vw,64px);line-height:1.04;margin:0 0 18px}.goldbar{width:64px;height:4px;background:var(--gold);margin:0 0 20px}.hero .lede{font-size:clamp(17px,2.1vw,20px);color:var(--onburg);margin:0 0 28px}
+.btns{display:flex;flex-wrap:wrap;gap:10px}.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:4px;text-decoration:none;font-weight:600;border:1px solid rgba(255,255,255,.35);color:#fff}.btn.primary{background:var(--gold);border-color:var(--gold);color:#2a1a10}.btn:hover{filter:brightness(1.06)}
+.rail{border-left:2px solid rgba(255,255,255,.22);padding-left:26px;display:grid;gap:26px}.rail div{position:relative}.rail div::before{content:"";position:absolute;left:-34px;top:4px;width:14px;height:14px;background:var(--gold)}.rail .num{color:var(--gold)}.rail strong{display:block;font-size:20px;font-weight:600;line-height:1.25;margin-top:2px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:28px;font-size:14px;color:var(--onburg2)}.facts span::before{content:"■ ";color:var(--gold);font-size:10px}
+section{padding:60px 0}section.alt{background:var(--bg2)}h2{font-size:clamp(26px,3.6vw,36px);line-height:1.15;margin:0 0 10px}.sub{color:var(--muted);margin:0 0 30px;font-size:17px}
+.cols3{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))}.cols2{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}.hero .grid>*,.cols2>*,.cols3>*,.step>*,.files>*{min-width:0}
+.card{background:var(--card);border:1px solid var(--rule);padding:24px}.card h3{font-size:22px;line-height:1.2;margin:8px 0 12px;padding-bottom:14px;border-bottom:1px solid var(--rule)}.card p{margin:0;color:var(--muted)}.card .more{display:inline-block;margin-top:14px;font-weight:600;text-decoration:none}.card.dark{background:var(--burg);border-color:var(--burg);color:#fff}.card.dark h3{border-color:rgba(255,255,255,.2)}.card.dark p{color:var(--onburg)}.card.dark .num,.card.dark .more{color:var(--gold)}
+.vs{padding:26px}.vs .lbl{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.vs .what{font-size:19px;font-weight:600;margin:6px 0 4px}.vs .big{font-size:clamp(44px,6vw,60px);font-weight:600;line-height:1.05;margin:8px 0 10px}.vs p{margin:0;color:var(--ink)}.vs.ok{background:var(--greenbg);border-color:var(--greenbg)}.vs.ok .lbl,.vs.ok .big{color:var(--green)}.vs.bad{background:var(--pale);border-color:var(--pale)}.vs.bad .lbl,.vs.bad .big{color:var(--red)}.vs .badge{display:inline-block;margin-top:14px;font-size:13px;font-weight:700;padding:3px 10px;color:#fff}.vs.ok .badge{background:var(--green)}.vs.bad .badge{background:var(--red)}
+.punch{font-size:clamp(19px,2.4vw,24px);font-weight:600;color:var(--red);margin:26px 0 0}.preview{margin-top:30px;border:1px solid var(--rule);background:var(--card)}.preview .bar{display:flex;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px solid var(--rule);font-size:14px;color:var(--muted)}.preview iframe{display:block;width:100%;height:600px;border:0;background:var(--bg)}
+.steps{display:grid;gap:0}.step{display:grid;grid-template-columns:64px 1fr;gap:18px;padding:22px 0;border-top:1px solid var(--rule)}.step:last-child{border-bottom:1px solid var(--rule)}.step .n{font-size:34px;font-weight:600;color:var(--red);line-height:1}.step h3{margin:2px 0 6px;font-size:20px}.step p{margin:0 0 10px;color:var(--muted)}.step.key .n,.step.key h3{color:var(--red)}
+.cmd{display:flex;align-items:stretch;background:var(--code);color:var(--codefg);margin:8px 0 0;font:14px/1.5 Consolas,ui-monospace,"SF Mono",monospace}.cmd code{flex:1;padding:11px 14px;overflow-x:auto;white-space:nowrap}.cmd button{border:0;border-left:1px solid #34373e;background:transparent;color:#c9ced6;padding:0 16px;cursor:pointer;font:600 13px "Segoe UI",system-ui,sans-serif;letter-spacing:.04em}.cmd button:hover{color:#fff;background:#2b2e35}
+.note{margin-top:22px;padding:14px 18px;background:var(--pale);color:var(--ink);font-size:15px}.note code{font-family:Consolas,monospace}
+.files{display:grid;gap:0;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));border-top:1px solid var(--rule)}.file{display:grid;grid-template-columns:40px 1fr;gap:12px;padding:18px 4px;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--rule)}.file .num{padding-top:3px}.file code{font:600 14px Consolas,ui-monospace,monospace;color:var(--red)}.file span{display:block;color:var(--muted);font-size:15px;margin-top:2px}.file:hover code{text-decoration:underline}
+details{border-top:1px solid var(--rule);padding:16px 0}details:last-of-type{border-bottom:1px solid var(--rule)}summary{cursor:pointer;font-weight:600;font-size:18px;list-style:none;display:flex;justify-content:space-between;gap:16px}summary::after{content:"+";color:var(--red);font-size:22px;line-height:1}details[open] summary::after{content:"–"}summary::-webkit-details-marker{display:none}details p{color:var(--muted);margin:10px 0 0}
+footer{background:var(--burg);color:var(--onburg);padding:44px 0 56px}footer .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}footer .tag{color:var(--gold)}footer strong{color:#fff;font-weight:600}footer a{color:#fff}footer .fine{margin-top:30px;padding-top:16px;border-top:1px solid rgba(255,255,255,.15);font-size:13px;color:var(--onburg2)}
+</style>
 </head>
 <body>
-<div class="wrap">
-<header>
-<p class="kicker">HESS Consortium National Conference 2026 · Take-home kit</p>
-<h1>Automate one weekly report with AI, and trust the number</h1>
-<p class="lede">From the session <em>From Demo to System: AI-Augmented Analytics at a Small Private University</em>, Union University Enterprise Systems, IT. Everything here runs on fake data, so you can try it today and point it at your own data when your team is ready.</p>
-<div class="btns">
-<a class="btn primary" href="https://github.com/UUBryson/hess-2026-ai-report-kit/archive/refs/heads/main.zip">Download the kit</a>
-<a class="btn" href="https://github.com/UUBryson/hess-2026-ai-report-kit">View on GitHub</a>
-<a class="btn" href="examples/report_correct.html">See the finished report</a>
-</div>
-</header>
+<nav><div class="wrap"><a class="brand" href="#top">Weekly Report Kit</a><a class="link" href="#idea">The idea</a><a class="link" href="#see">See it</a><a class="link" href="#try">Try it</a><a class="link" href="#yours">Make it yours</a><a class="link" href="#faq">FAQ</a><button class="toggle" id="theme" aria-label="Switch light or dark mode">◐</button></div></nav>
 
-<h2>The three essentials</h2>
-<div class="grid">
-<div class="card"><h3><span class="num">1</span>Governed data access</h3><p>The tool reads a reporting copy through a read-only login, never production. People who own the data decide what it can see. <a href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/ACCESS.md">ACCESS.md</a></p></div>
-<div class="card"><h3><span class="num">2</span>Verify before it ships</h3><p>Source, method, and a challenge for every number, then a human reviewer signs off. <a href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/CHECKLIST.md">CHECKLIST.md</a></p></div>
-<div class="card"><h3><span class="num">3</span>Knowledge written down</h3><p>The rules that live in one person's head, captured once, so your team and your tools follow the same ones. <a href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/rules/report_rules.md">report_rules.md</a></p></div>
+<header class="hero" id="top"><div class="wrap"><div class="grid">
+<div>
+<span class="tag">HESS Consortium National Conference 2026 · Take-home kit</span>
+<h1>Automate one weekly report with AI, and trust the number.</h1>
+<div class="goldbar"></div>
+<p class="lede">A free, hands-on kit from Union University Enterprise Systems, IT. It takes one report almost every school builds by hand, weekly registration pacing, from manual to automated to verified. Everything runs on fake data, so you can try it today.</p>
+<div class="btns"><a class="btn primary" href="https://github.com/UUBryson/hess-2026-ai-report-kit/archive/refs/heads/main.zip">Download the kit</a><a class="btn" href="#try">Try it in 15 minutes</a><a class="btn" href="https://github.com/UUBryson/hess-2026-ai-report-kit">View on GitHub</a></div>
+<div class="facts"><span>About 15 minutes</span><span>Python only</span><span>100% fake data</span><span>Any AI tool</span><span>Free to reuse</span></div>
 </div>
-
-<h2>Why the check matters: same data, one wrong date</h2>
-<div class="compare">
-<div class="card"><p>Compared with the same <strong>week of the year and weekday</strong> last year</p><p class="big ok">Down 73</p><p>1,436 now vs 1,509 on Mon 2025-11-10. All 14 checks pass. <a href="examples/report_correct.html">Report</a></p></div>
-<div class="card"><p>Compared with the same <strong>calendar date</strong>, nearest earlier snapshot</p><p class="big bad">Up 139</p><p>1,436 now vs 1,297 on Mon 2025-11-03, a week early. The checker fails it. <a href="examples/report_with_mistake.html">Report</a></p></div>
+<div class="rail">
+<div><span class="num">01</span><strong>Governed data access</strong></div>
+<div><span class="num">02</span><strong>Verify before it ships</strong></div>
+<div><span class="num">03</span><strong>Knowledge written down</strong></div>
 </div>
-<p>Both reports look finished, and both count the data correctly. Only one answers the question. That is what the checklist is for.</p>
+</div></div></header>
 
+<section id="idea"><div class="wrap">
+<span class="tag">The essentials</span>
+<h2>Everything rests on three things</h2>
+<p class="sub">The tools change every few months. These three don't, and skipping any one of them turns a system back into a demo.</p>
+<div class="cols3">
+<div class="card"><span class="num">01</span><h3>Governed data access</h3><p>Read-only accounts on a reporting copy. Access by role, set by the data owner. Changes only through your normal process.</p><a class="more" href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/ACCESS.md">The access guide →</a></div>
+<div class="card dark"><span class="num">02</span><h3>Verify before it ships</h3><p>Source, method, and a challenge for every number. Then a human reviewer signs off before it reaches leadership.</p><a class="more" href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/CHECKLIST.md">The checklist →</a></div>
+<div class="card"><span class="num">03</span><h3>Knowledge written down</h3><p>The rules that live in one person's head, captured once, so your team and your AI tools follow the same ones.</p><a class="more" href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/rules/report_rules.md">The rules file →</a></div>
+</div>
+</div></section>
+
+<section id="see" class="alt"><div class="wrap">
+<span class="tag">The comparison trap</span>
+<h2>Same data. One wrong date.</h2>
+<p class="sub">"Compare to last year" sounds simple. Here is what happens when the rule isn't written down.</p>
+<div class="cols2">
+<div class="card vs ok"><span class="lbl">Correct comparison</span><div class="what">Same week of the year + weekday</div><div class="big">Down 73</div><p>1,436 now vs 1,509 on Monday 11/10/2025. Monday of week 46 to Monday of week 46.</p><span class="badge">All 14 checks pass</span></div>
+<div class="card vs bad"><span class="lbl">Wrong comparison</span><div class="what">Calendar date + fallback</div><div class="big">Up 139</div><p>1,436 now vs 1,297 on Monday 11/3/2025. 11/9/2025 was a Sunday with no snapshot, so it quietly fell back a week.</p><span class="badge">Checker fails it</span></div>
+</div>
+<p class="punch">Both count correctly. Only one answers the question.</p>
+<div class="preview"><div class="bar"><span>The finished sample report, built from fake data</span><a href="examples/report_correct.html" target="_blank" rel="noopener">Open full page ↗</a></div><iframe src="examples/report_correct.html" title="Sample weekly registration report" loading="lazy"></iframe></div>
+</div></section>
+
+<section id="try"><div class="wrap">
+<span class="tag">Hands on</span>
 <h2>Try it in 15 minutes</h2>
-<p>You need Python 3.9 or later. Nothing else to install.</p>
-<pre><span>python data/make_sample_data.py      # rebuild the fake data (optional, it's included)</span>
-<span>python report/build_report.py        # build the report</span>
-<span>python check/verify.py               # 14 checks; exit code 0 = OK to send</span>
-<span>python check/verify.py --challenge   # prove the checks can fail</span>
-<span>python report/build_report.py --compare-by calendar --out report/out_mistake</span>
-<span>python check/verify.py --summary report/out_mistake/summary.json   # watch it catch the mistake</span></pre>
-
-<h2>Then make it yours</h2>
-<ol class="steps">
-<li><strong>Pick the report.</strong> One someone builds by hand every week. Registration pacing is a good first one.</li>
-<li><strong>Write the rules down.</strong> Sit with the person who builds it, record them talking through it, and fill in <code>rules/report_rules.md</code>. Read it back to them.</li>
-<li><strong>Get read-only access.</strong> Use the request in <code>ACCESS.md</code>. Build against fake or de-identified data first.</li>
-<li><strong>Have AI draft the script.</strong> Use <code>prompts/01_build_report.md</code> with an AI tool your school approves.</li>
-<li><strong>Verify, then hand it back.</strong> Run the checks, then show the first real report to the person who used to build it. They sign off.</li>
-</ol>
-
-<h2>What's in the kit</h2>
-<table>
-<tr><th>File</th><th>What it is</th></tr>
-<tr><td><code>rules/report_rules.md</code></td><td>The written-down rules for the report. Start here.</td></tr>
-<tr><td><code>prompts/01_build_report.md</code></td><td>The prompt to give your AI assistant.</td></tr>
-<tr><td><code>report/build_report.py</code></td><td>A reference script, the kind the prompt produces.</td></tr>
-<tr><td><code>check/verify.py</code></td><td>Source and method checks, plus a challenge that proves the checks can fail.</td></tr>
-<tr><td><code>data/registrations_sample.csv</code></td><td>Fake weekly registration snapshots for two spring terms.</td></tr>
-<tr><td><code>CHECKLIST.md</code>, <code>ACCESS.md</code></td><td>One-page guides for verification and data access.</td></tr>
-</table>
-
-<footer>
-<p>Shared by Union University Enterprise Systems, IT (Jackson, Tennessee) at the 2026 HESS Consortium National Conference. All data in this kit is invented. Questions or want to go further? Contact Willie George (wgeorge@uu.edu) or Bryson McNichols (bmcnichols@uu.edu).</p>
-</footer>
+<p class="sub">You only need Python 3.9 or later. No packages to install, no database, no account.</p>
+<div class="steps">
+<div class="step"><div class="n">01</div><div><h3>Get the kit</h3><p>Use Download the kit above and unzip it, or clone it with Git. Then open a terminal in that folder.</p><div class="cmd"><code>git clone https://github.com/UUBryson/hess-2026-ai-report-kit.git</code><button data-copy>COPY</button></div></div></div>
+<div class="step"><div class="n">02</div><div><h3>Build the report</h3><p>Reads the fake snapshots, applies the written rules, and writes an HTML report plus a summary file to <code>report/out/</code>.</p><div class="cmd"><code>python report/build_report.py</code><button data-copy>COPY</button></div></div></div>
+<div class="step key"><div class="n">03</div><div><h3>Check it before anyone sees it</h3><p>Fourteen checks recount the numbers from the raw file with separate code. Exit code 0 means it is OK to send.</p><div class="cmd"><code>python check/verify.py</code><button data-copy>COPY</button></div></div></div>
+<div class="step"><div class="n">04</div><div><h3>Prove the checks can fail</h3><p>A check that can never fail isn't a check. This breaks a copy on purpose and confirms both breaks are caught.</p><div class="cmd"><code>python check/verify.py --challenge</code><button data-copy>COPY</button></div></div></div>
+<div class="step key"><div class="n">05</div><div><h3>Watch it catch the classic mistake</h3><p>Build the report the wrong way, by calendar date, then run the checker on it. It flags the date and says not to send.</p><div class="cmd"><code>python report/build_report.py --compare-by calendar --out report/out_mistake</code><button data-copy>COPY</button></div><div class="cmd"><code>python check/verify.py --summary report/out_mistake/summary.json</code><button data-copy>COPY</button></div></div></div>
 </div>
+<p class="note">On Windows, if <code>python</code> isn't found, use <code>py</code> instead. On a Mac, use <code>python3</code>.</p>
+</div></section>
+
+<section id="yours" class="alt"><div class="wrap">
+<span class="tag">The workflow</span>
+<h2>Five steps to a trusted report</h2>
+<p class="sub">From a report someone builds by hand to one your leadership can trust. Steps 02 and 05 are the ones people skip.</p>
+<div class="steps">
+<div class="step"><div class="n">01</div><div><h3>Pick the report</h3><p>One someone builds by hand every week. Registration pacing is a good first one. If it already lives in Power BI or an Excel macro, the rules and the checks still apply.</p></div></div>
+<div class="step key"><div class="n">02</div><div><h3>Write the rules down</h3><p>Sit with the person who builds it and record them walking through last week's report. Turn it into <code>rules/report_rules.md</code>, then read it back to them.</p></div></div>
+<div class="step"><div class="n">03</div><div><h3>Get read-only access</h3><p>Send your DBA the short request in <code>ACCESS.md</code>. Build against fake or de-identified data first.</p></div></div>
+<div class="step"><div class="n">04</div><div><h3>AI drafts the script</h3><p>Give an AI tool your school approves the rules file, a sample of the data, and <code>prompts/01_build_report.md</code>. It lists each rule and asks before it guesses.</p></div></div>
+<div class="step key"><div class="n">05</div><div><h3>Verify, then hand it back</h3><p>Run the checks. Show the first real report to the person who used to build it. They are the final reviewer.</p></div></div>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<span class="tag">What's inside</span>
+<h2>Everything in the kit</h2>
+<p class="sub">Every file is short, plain, and meant to be copied.</p>
+<div class="files">
+<a class="file" href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/rules/report_rules.md"><span class="num">01</span><div><code>rules/report_rules.md</code><span>The written-down rules. Start here.</span></div></a>
+<a class="file" href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/prompts/01_build_report.md"><span class="num">02</span><div><code>prompts/01_build_report.md</code><span>The prompt to give your AI assistant.</span></div></a>
+<a class="file" href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/report/build_report.py"><span class="num">03</span><div><code>report/build_report.py</code><span>A reference script, the kind the prompt produces.</span></div></a>
+<a class="file" href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/check/verify.py"><span class="num">04</span><div><code>check/verify.py</code><span>Source and method checks, plus the challenge.</span></div></a>
+<a class="file" href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/data/registrations_sample.csv"><span class="num">05</span><div><code>data/registrations_sample.csv</code><span>Fake weekly snapshots for two spring terms.</span></div></a>
+<a class="file" href="https://github.com/UUBryson/hess-2026-ai-report-kit/blob/main/CHECKLIST.md"><span class="num">06</span><div><code>CHECKLIST.md</code> · <code>ACCESS.md</code><span>One-page guides: verification and data access.</span></div></a>
+</div>
+</div></section>
+
+<section id="faq" class="alt"><div class="wrap">
+<span class="tag">FAQ</span>
+<h2>Questions people ask</h2>
+<p class="sub">If yours isn't here, email us. We're glad to help.</p>
+<details><summary>Which AI tool do I need?</summary><p>Whichever one your institution approves. Claude, ChatGPT, Copilot, Gemini and others all work; the kit is tool-neutral. The rules file does the heavy lifting, and the prompt mostly tells the AI to follow it and to ask instead of guess.</p></details>
+<details><summary>Do I have to know how to code?</summary><p>You need to be comfortable running a command in a terminal. You don't need to write Python yourself, but you should read what the AI writes and be able to explain each part before you trust it. The reference script is short on purpose.</p></details>
+<details><summary>What about FERPA and student data?</summary><p>Build and test on fake or de-identified data, like the sample in this kit. Only put real student records into AI tools your institution has approved for that data. ACCESS.md covers who approves what.</p></details>
+<details><summary>We already automated this in Power BI or Excel. Is this still useful?</summary><p>Yes. The rules file and the checks are the point, not the tool. Automation without them is how a wrong comparison goes out every Monday without anyone noticing.</p></details>
+<details><summary>What does "same week of the year" mean?</summary><p>Weeks numbered the standard international (ISO) way, starting on Monday. Monday of week 46 this year lines up with Monday of week 46 last year, even though the calendar dates differ.</p></details>
+<details><summary>Can I reuse or change this for my school?</summary><p>Yes. It's MIT licensed. Copy it, rename it, adapt the rules to your own report, and share it with your team.</p></details>
+</div></section>
+
+<footer><div class="wrap">
+<div class="row">
+<div><span class="tag">Shared by</span><strong>Union University Enterprise Systems, IT</strong><br>Jackson, Tennessee<br>2026 HESS Consortium National Conference</div>
+<div><span class="tag">Let's keep going</span><strong>Willie George</strong><br><a href="mailto:wgeorge@uu.edu">wgeorge@uu.edu</a></div>
+<div><span class="tag">&nbsp;</span><strong>Bryson McNichols</strong><br><a href="mailto:bmcnichols@uu.edu">bmcnichols@uu.edu</a></div>
+</div>
+<p class="fine">All data in this kit is invented. No Union University data is included. MIT License.</p>
+</div></footer>
+
+<script>
+document.querySelectorAll("[data-copy]").forEach(function (b) { b.addEventListener("click", function () { var t = b.previousElementSibling.textContent; navigator.clipboard.writeText(t).then(function () { b.textContent = "COPIED"; setTimeout(function () { b.textContent = "COPY"; }, 1500); }); }); });
+(function () { var root = document.documentElement, key = "kit-theme", saved = null; try { saved = localStorage.getItem(key); } catch (e) {} if (saved) root.setAttribute("data-theme", saved); document.getElementById("theme").addEventListener("click", function () { var dark = root.getAttribute("data-theme") ? root.getAttribute("data-theme") === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; var next = dark ? "light" : "dark"; root.setAttribute("data-theme", next); try { localStorage.setItem(key, next); } catch (e) {} }); })();
+</script>
 </body>
 </html>

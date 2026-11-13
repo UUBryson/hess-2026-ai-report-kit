@@ -97,28 +97,54 @@ def main():
 
 def render(s):
     t, p = s["this_year"], s["last_year"]
+
+    def delta(now, then):
+        d = now - then
+        cls = "up" if d > 0 else "down" if d < 0 else "flat"
+        return f'<span class="chg {cls}">{d:+,}</span>'
+
+    def tile(label, now, then):
+        return (f'<div class="tile"><div class="lbl">{label}</div><div class="num">{now:,}</div>'
+                f'<div class="sub">{delta(now, then)} vs {then:,} last year</div></div>')
+
     def table(title, key):
         keys = sorted(set(t[key]) | set(p[key]))
         body = "".join(
             f"<tr><td>{html.escape(k)}</td><td>{t[key].get(k, 0):,}</td>"
-            f"<td>{p[key].get(k, 0):,}</td><td>{t[key].get(k, 0) - p[key].get(k, 0):+,}</td></tr>"
+            f"<td>{p[key].get(k, 0):,}</td><td>{delta(t[key].get(k, 0), p[key].get(k, 0))}</td></tr>"
             for k in keys)
-        return (f"<h2>{title}</h2><table><tr><th>{title}</th><th>This year</th><th>Last year</th><th>Change</th></tr>{body}"
-                f"<tr><th>Total</th><th>{t['headcount']:,}</th><th>{p['headcount']:,}</th><th>{s['change']:+,}</th></tr></table>")
-    word = "up" if s["change"] >= 0 else "down"
-    return f"""<!doctype html><html><head><meta charset="utf-8"><title>Registration Report {t['date']}</title>
-<style>body{{font-family:system-ui,sans-serif;margin:24px;color:#1f2937}}h1{{font-size:22px}}h2{{font-size:16px;margin-top:20px}}
-table{{border-collapse:collapse;margin-top:12px}}td,th{{border:1px solid #d1d5db;padding:6px 10px;text-align:right}}
-td:first-child,th:first-child{{text-align:left}}.big{{font-size:40px;font-weight:700}}.muted{{color:#6b7280}}</style></head><body>
-<h1>{s['term']} Registration Report</h1>
-<p class="muted">As of {t['date']}, compared with {p['date']} ({s['prior_term']}). Fake data from the HESS 2026 kit.</p>
-<p class="big">{t['headcount']:,}</p>
-<p>students registered, {word} {abs(s['change']):,} from the same week last year ({p['headcount']:,}).
-Credit hours {t['credit_hours']:,} vs {p['credit_hours']:,}. Dual enrollment, reported separately: {t['dual_enrollment']:,} vs {p['dual_enrollment']:,}.</p>
-{table("School", "by_school")}
-{table("Level", "by_level")}
-{table("Student type", "by_type")}
-</body></html>"""
+        return (f'<section class="card"><h2>By {title.lower()}</h2><table><thead><tr><th>{title}</th><th>This year</th>'
+                f"<th>Last year</th><th>Change</th></tr></thead><tbody>{body}</tbody><tfoot><tr><th>Total</th>"
+                f"<th>{t['headcount']:,}</th><th>{p['headcount']:,}</th><th>{delta(t['headcount'], p['headcount'])}</th></tr></tfoot></table></section>")
+
+    method = ("Same week of the year and weekday last year" if s["compare_by"] == "week"
+              else "Same calendar date last year, nearest earlier snapshot")
+    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{s['term']} Registration Report</title>
+<style>
+:root{{--bg:#faf9f6;--card:#fff;--fg:#24252a;--muted:#62646b;--line:#dedad5;--accent:#8c2034;--up:#246653;--down:#8c2034}}
+@media (prefers-color-scheme:dark){{:root{{--bg:#15171b;--card:#1d2026;--fg:#ecebe7;--muted:#a4a9b2;--line:#30343c;--accent:#e58a7c;--up:#7fd19b;--down:#f09a8f}}}}
+*{{box-sizing:border-box}}body{{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 "Segoe UI",system-ui,-apple-system,sans-serif}}
+.wrap{{width:min(100%,960px);margin:0 auto;padding:24px 16px 40px}}
+.kicker{{color:var(--accent);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin:0}}
+h1{{margin:4px 0 6px;font-size:26px}}.meta{{color:var(--muted);margin:0 0 20px}}
+.tiles{{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:16px}}
+.tile,.card{{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}}
+.lbl{{color:var(--muted);font-size:13px}}.num{{font-size:34px;font-weight:700;line-height:1.2}}.sub{{font-size:13px;color:var(--muted)}}
+.chg{{font-weight:700}}.chg.up{{color:var(--up)}}.chg.down{{color:var(--down)}}
+.grid{{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}}
+h2{{font-size:15px;margin:0 0 8px}}table{{width:100%;border-collapse:collapse}}
+td,th{{padding:6px 4px;text-align:right;border-bottom:1px solid var(--line)}}td:first-child,th:first-child{{text-align:left}}
+thead th{{color:var(--muted);font-weight:600;font-size:13px}}tfoot th{{border-bottom:0}}
+.note{{margin-top:16px;color:var(--muted);font-size:13px}}
+</style></head><body><div class="wrap">
+<p class="kicker">Weekly Registration Report · fake data</p>
+<h1>{s['term']} registration as of {t['date']}</h1>
+<p class="meta">Compared with {p['date']} ({s['prior_term']}). Method: {method}.</p>
+<div class="tiles">{tile("Students registered", t['headcount'], p['headcount'])}{tile("Credit hours", t['credit_hours'], p['credit_hours'])}{tile("Dual enrollment (reported separately)", t['dual_enrollment'], p['dual_enrollment'])}</div>
+<div class="grid">{table("School", "by_school")}{table("Level", "by_level")}{table("Student type", "by_type")}</div>
+<p class="note">Built by report/build_report.py from data/registrations_sample.csv. Every number here is invented. Run check/verify.py before sharing a report like this.</p>
+</div></body></html>"""
 
 
 if __name__ == "__main__":
